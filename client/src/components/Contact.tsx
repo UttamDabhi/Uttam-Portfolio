@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Github, Linkedin, Twitter, Send, MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useMutation } from '@tanstack/react-query';
+import { apiRequest } from '@/lib/queryClient';
+import { useToast } from '@/hooks/use-toast';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -9,11 +12,36 @@ export default function Contact() {
     message: ''
   });
 
+  const { toast } = useToast();
+
+  const contactMutation = useMutation({
+    mutationFn: async (data: { name: string; email: string; message: string }) => {
+      return await apiRequest('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+    },
+    onSuccess: () => {
+      toast({
+        title: "Message sent successfully!",
+        description: "Thank you for your message. I'll get back to you soon.",
+      });
+      setFormData({ name: '', email: '', message: '' });
+    },
+    onError: (error) => {
+      toast({
+        title: "Error sending message",
+        description: "There was an error sending your message. Please try again.",
+        variant: "destructive",
+      });
+      console.error('Error sending contact message:', error);
+    }
+  });
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Contact form submitted:', formData);
-    alert('Thank you for your message! I will get back to you soon.');
-    setFormData({ name: '', email: '', message: '' });
+    contactMutation.mutate(formData);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -174,12 +202,22 @@ export default function Contact() {
                 
                 <motion.button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-primary to-purple-600 hover:from-purple-600 hover:to-cyan-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 inline-flex items-center justify-center gap-2 group"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  disabled={contactMutation.isPending}
+                  className="w-full bg-gradient-to-r from-primary to-purple-600 hover:from-purple-600 hover:to-cyan-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 inline-flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
+                  whileHover={contactMutation.isPending ? {} : { scale: 1.05 }}
+                  whileTap={contactMutation.isPending ? {} : { scale: 0.95 }}
                 >
-                  <Send className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                  Send Message
+                  {contactMutation.isPending ? (
+                    <>
+                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                      Send Message
+                    </>
+                  )}
                 </motion.button>
               </form>
             </div>

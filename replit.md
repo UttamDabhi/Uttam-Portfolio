@@ -117,3 +117,26 @@ Preferred communication style: Simple, everyday language.
 - **Database Migrations**: Drizzle Kit push command for schema updates
 
 The architecture is designed to be scalable and maintainable, with clear separation between frontend and backend concerns. The storage interface allows for easy migration from in-memory to persistent database storage, while the component-based frontend structure enables easy customization and extension of the portfolio content.
+
+## Recent Database Integration (2025-07-09)
+
+### Database Schema
+- **Users Table**: Complete user profiles with social links and bio information
+- **Projects Table**: Portfolio projects with metadata, tags, and statistics
+- **Skills Table**: Technical skills with proficiency levels and categorization
+- **Contact Messages Table**: Contact form submissions with status tracking
+- **Experiences Table**: Professional experience entries with achievements
+
+### API Endpoints
+- **Projects**: GET/POST/PUT/DELETE `/api/projects` with featured project filtering
+- **Skills**: GET/POST/PUT/DELETE `/api/skills` with category filtering
+- **Contact**: POST `/api/contact` for form submissions
+- **Experiences**: GET/POST/PUT/DELETE `/api/experiences`
+- **Profile**: GET/PUT `/api/profile` for user profile management
+
+### Database Features
+- **Neon PostgreSQL**: Serverless PostgreSQL with automatic scaling
+- **Drizzle ORM**: Type-safe database operations with schema validation
+- **Real-time Updates**: Contact form now saves to database with toast notifications
+- **Data Persistence**: All portfolio data stored in database for dynamic updates
+- **Sample Data**: Pre-populated with skills and projects for demonstration
