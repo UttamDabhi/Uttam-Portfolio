@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Moon, Sun, Menu, X } from 'lucide-react';
+import { Moon, Sun, Menu, X, Sparkles } from 'lucide-react';
 import { useTheme } from './ThemeProvider';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
@@ -47,84 +48,160 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 transition-all duration-300">
+    <motion.nav 
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      className="fixed top-0 left-0 right-0 z-50 glass-effect backdrop-blur-md border-b border-slate-200 dark:border-slate-700 transition-all duration-300"
+    >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <div className="flex-shrink-0">
+          <motion.div 
+            className="flex-shrink-0"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
             <button
               onClick={() => scrollToSection('home')}
-              className="text-2xl font-bold text-primary hover:text-primary-foreground transition-colors duration-200"
+              className="text-2xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent hover:from-purple-600 hover:to-primary transition-all duration-300 flex items-center gap-2"
             >
+              <Sparkles className="h-6 w-6 text-primary animate-pulse" />
               UD
             </button>
-          </div>
+          </motion.div>
           
           <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-4">
-              {navItems.map(item => (
-                <button
+            <div className="ml-10 flex items-baseline space-x-2">
+              {navItems.map((item, index) => (
+                <motion.button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                  className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
                     activeSection === item.id
-                      ? 'text-primary'
-                      : 'text-slate-700 dark:text-slate-300 hover:text-primary'
+                      ? 'text-primary bg-primary/10'
+                      : 'text-slate-700 dark:text-slate-300 hover:text-primary hover:bg-slate-100 dark:hover:bg-slate-800'
                   }`}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   {item.label}
-                </button>
+                  {activeSection === item.id && (
+                    <motion.div
+                      className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary"
+                      layoutId="navbar-indicator"
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  )}
+                </motion.button>
               ))}
             </div>
           </div>
           
           <div className="flex items-center space-x-4">
-            <button
+            <motion.button
               onClick={toggleTheme}
               className="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200"
               aria-label="Toggle theme"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
             >
-              {theme === 'light' ? (
-                <Moon className="h-5 w-5 text-slate-700 dark:text-slate-300" />
-              ) : (
-                <Sun className="h-5 w-5 text-slate-700 dark:text-slate-300" />
-              )}
-            </button>
+              <AnimatePresence mode="wait">
+                {theme === 'light' ? (
+                  <motion.div
+                    key="moon"
+                    initial={{ rotate: 90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -90, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Moon className="h-5 w-5 text-slate-700 dark:text-slate-300" />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="sun"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Sun className="h-5 w-5 text-slate-700 dark:text-slate-300" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.button>
             
-            <button
+            <motion.button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="md:hidden p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200"
               aria-label="Toggle menu"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
             >
-              {isMenuOpen ? (
-                <X className="h-5 w-5 text-slate-700 dark:text-slate-300" />
-              ) : (
-                <Menu className="h-5 w-5 text-slate-700 dark:text-slate-300" />
-              )}
-            </button>
+              <AnimatePresence mode="wait">
+                {isMenuOpen ? (
+                  <motion.div
+                    key="close"
+                    initial={{ rotate: 90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -90, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <X className="h-5 w-5 text-slate-700 dark:text-slate-300" />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="menu"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Menu className="h-5 w-5 text-slate-700 dark:text-slate-300" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.button>
           </div>
         </div>
       </div>
       
       {/* Mobile menu */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {navItems.map(item => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
-                  activeSection === item.id
-                    ? 'text-primary bg-primary/10'
-                    : 'text-slate-700 dark:text-slate-300 hover:text-primary hover:bg-slate-100 dark:hover:bg-slate-800'
-                }`}
-              >
-                {item.label}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-    </nav>
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div 
+            className="md:hidden glass-effect border-t border-slate-200 dark:border-slate-700"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+              {navItems.map((item, index) => (
+                <motion.button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
+                    activeSection === item.id
+                      ? 'text-primary bg-primary/10'
+                      : 'text-slate-700 dark:text-slate-300 hover:text-primary hover:bg-slate-100 dark:hover:bg-slate-800'
+                  }`}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {item.label}
+                </motion.button>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.nav>
   );
 }
