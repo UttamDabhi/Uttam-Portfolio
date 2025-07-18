@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Github, Linkedin, Twitter, Send, MessageCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useMutation } from '@tanstack/react-query';
-import { apiRequest } from '@/lib/queryClient';
-import { useToast } from '@/hooks/use-toast';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -12,56 +9,16 @@ export default function Contact() {
     message: ''
   });
 
-  const { toast } = useToast();
-
-  const contactMutation = useMutation({
-    mutationFn: async (data: { name: string; email: string; message: string }) => {
-      return await apiRequest('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
-    },
-    onSuccess: () => {
-      toast({
-        title: "Message sent successfully!",
-        description: "Thank you for your message. I'll get back to you soon.",
-      });
-      setFormData({ name: '', email: '', message: '' });
-    },
-    onError: (error) => {
-      toast({
-        title: "Error sending message",
-        description: "There was an error sending your message. Please try again.",
-        variant: "destructive",
-      });
-      console.error('Error sending contact message:', error);
-    }
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    contactMutation.mutate(formData);
-  };
+  const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   return (
     <section id="contact" className="py-20 bg-slate-50 dark:bg-slate-900 transition-colors duration-300 relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-10 right-10 w-20 h-20 bg-primary rounded-full animate-pulse"></div>
-        <div className="absolute bottom-10 left-10 w-16 h-16 bg-purple-500 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
-        <div className="absolute top-1/2 right-1/4 w-12 h-12 bg-cyan-500 rounded-full animate-pulse" style={{animationDelay: '2s'}}></div>
-      </div>
-
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div 
+        <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -75,8 +32,9 @@ export default function Contact() {
             I'm always open to discussing new opportunities and interesting projects
           </p>
         </motion.div>
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {/* Contact Info */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -85,162 +43,105 @@ export default function Contact() {
           >
             <div className="space-y-6">
               {[
-                { icon: Mail, title: "Email", value: "uttam.dabhi@email.com", color: "from-blue-500 to-cyan-500" },
-                { icon: Phone, title: "Phone", value: "+91 98765 43210", color: "from-green-500 to-teal-500" },
-                { icon: MapPin, title: "Location", value: "Gujarat, India", color: "from-purple-500 to-pink-500" }
+                { icon: Mail, title: "Email", value: "umdabhi2004@email.com" },
+                { icon: Phone, title: "Phone", value: "+91 99780 95704" },
+                { icon: MapPin, title: "Location", value: "Ahmedabad, Gujarat, India" }
               ].map((item, index) => (
-                <motion.div
-                  key={item.title}
-                  className="flex items-center space-x-4 group"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.2, duration: 0.6 }}
-                  whileHover={{ scale: 1.02 }}
-                >
-                  <div className={`w-12 h-12 bg-gradient-to-r ${item.color} rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                    <item.icon className="text-white h-6 w-6" />
+                <div key={index} className="flex items-center space-x-4">
+                  <div className="bg-gradient-to-r from-blue-500 to-cyan-500 p-3 rounded-full text-white">
+                    <item.icon className="w-5 h-5" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-slate-900 dark:text-white">{item.title}</h3>
+                    <h4 className="font-semibold text-slate-900 dark:text-white">{item.title}</h4>
                     <p className="text-slate-600 dark:text-slate-300">{item.value}</p>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
-            
-            <motion.div 
-              className="mt-8"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.8, duration: 0.6 }}
-            >
-              <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
-                <MessageCircle className="h-5 w-5 text-primary" />
-                Connect With Me
-              </h3>
-              <div className="flex space-x-4">
-                {[
-                  { icon: Github, href: "#", color: "hover:bg-gray-700" },
-                  { icon: Linkedin, href: "#", color: "hover:bg-blue-600" },
-                  { icon: Twitter, href: "#", color: "hover:bg-blue-500" }
-                ].map((social, index) => (
-                  <motion.a
-                    key={index}
-                    href={social.href}
-                    className={`w-12 h-12 glass-effect rounded-lg flex items-center justify-center ${social.color} hover:text-white transition-all duration-200 group`}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    initial={{ opacity: 0, scale: 0 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 1 + index * 0.1, duration: 0.3 }}
-                  >
-                    <social.icon className="h-5 w-5 group-hover:scale-110 transition-transform" />
-                  </motion.a>
-                ))}
-              </div>
-            </motion.div>
           </motion.div>
-          
+
+          {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="glass-effect p-8 rounded-xl">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                    Name
-                  </label>
-                  <motion.input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
-                    whileFocus={{ scale: 1.02 }}
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                    Email
-                  </label>
-                  <motion.input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
-                    whileFocus={{ scale: 1.02 }}
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                    Message
-                  </label>
-                  <motion.textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    rows={5}
-                    required
-                    className="w-full px-4 py-3 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200 resize-none"
-                    whileFocus={{ scale: 1.02 }}
-                  />
-                </div>
-                
-                <motion.button
-                  type="submit"
-                  disabled={contactMutation.isPending}
-                  className="w-full bg-gradient-to-r from-primary to-purple-600 hover:from-purple-600 hover:to-cyan-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 inline-flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
-                  whileHover={contactMutation.isPending ? {} : { scale: 1.05 }}
-                  whileTap={contactMutation.isPending ? {} : { scale: 0.95 }}
+            <div className="glass-effect p-8 rounded-xl bg-white dark:bg-slate-800 shadow-lg">
+              {submitted ? (
+                <p className="text-green-600 text-center font-semibold">
+                  ✅ Thank you! Your message has been sent.
+                </p>
+              ) : (
+                <form
+                  action="https://formsubmit.co/el/cagoho"
+                  method="POST"
+                  onSubmit={() => setSubmitted(true)}
+                  className="space-y-6"
                 >
-                  {contactMutation.isPending ? (
-                    <>
-                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                      Sending...
-                    </>
-                  ) : (
-                    <>
-                      <Send className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                      Send Message
-                    </>
-                  )}
-                </motion.button>
-              </form>
+                  {/* Hidden Inputs for FormSubmit */}
+                  <input type="hidden" name="_captcha" value="false" />
+                  <input type="hidden" name="_next" value="https://your-portfolio-domain.com/#contact" />
+                  <input type="hidden" name="_subject" value="New Contact Message from Portfolio Website" />
+
+                  {/* Name */}
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      required
+                      onChange={handleChange}
+                      value={formData.name}
+                      className="w-full px-4 py-3 bg-white dark:bg-slate-700 border rounded-lg focus:ring-2 focus:ring-primary"
+                    />
+                  </div>
+
+                  {/* Email */}
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      required
+                      onChange={handleChange}
+                      value={formData.email}
+                      className="w-full px-4 py-3 bg-white dark:bg-slate-700 border rounded-lg focus:ring-2 focus:ring-primary"
+                    />
+                  </div>
+
+                  {/* Message */}
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                      Message
+                    </label>
+                    <textarea
+                      name="message"
+                      rows={5}
+                      required
+                      onChange={handleChange}
+                      value={formData.message}
+                      className="w-full px-4 py-3 bg-white dark:bg-slate-700 border rounded-lg focus:ring-2 focus:ring-primary"
+                    />
+                  </div>
+
+                  {/* Submit */}
+                  <button
+                    type="submit"
+                    className="w-full bg-gradient-to-r from-primary to-purple-600 text-white py-3 px-6 rounded-lg flex items-center justify-center gap-2"
+                  >
+                    <Send className="h-5 w-5" />
+                    Send Message
+                  </button>
+                </form>
+              )}
             </div>
           </motion.div>
         </div>
-
-        {/* Quick Contact CTA */}
-        <motion.div 
-          className="mt-16 text-center"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-        >
-          <div className="inline-flex items-center gap-8 bg-white dark:bg-slate-800 rounded-full px-8 py-4 shadow-lg">
-            <span className="text-slate-600 dark:text-slate-300">Available for freelance work</span>
-            <div className="w-px h-6 bg-slate-200 dark:bg-slate-700"></div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-              <span className="text-sm text-slate-600 dark:text-slate-300">Online now</span>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   );

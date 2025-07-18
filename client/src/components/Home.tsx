@@ -71,7 +71,7 @@ export default function Home() {
             animate={{ scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <span className="bg-gradient-to-r from-primary via-purple-600 to-cyan-600 bg-clip-text text-transparent animate-pulse-glow">
+            <span className="inline-block px-6 py-3 bg-gradient-to-r from-primary via-purple-600 to-cyan-600 bg-clip-text text-transparent rounded-xl shadow-lg animate-pulse-glow">
               Uttam Dabhi
             </span>
           </motion.h1>

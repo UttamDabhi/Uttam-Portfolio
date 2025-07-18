@@ -5,17 +5,17 @@ import { motion } from 'framer-motion';
 export default function Skills() {
   const skills = [
     { name: 'HTML5', icon: SiHtml5, color: 'from-orange-400 to-red-500', level: 95 },
-    { name: 'CSS3', icon: SiCss3, color: 'from-blue-400 to-blue-600', level: 90 },
+    { name: 'CSS', icon: SiCss3, color: 'from-blue-400 to-blue-600', level: 90 },
     { name: 'JavaScript', icon: SiJavascript, color: 'from-yellow-400 to-yellow-600', level: 85 },
-    { name: 'TypeScript', icon: SiTypescript, color: 'from-blue-500 to-blue-700', level: 80 },
-    { name: 'React', icon: SiReact, color: 'from-cyan-400 to-blue-500', level: 90 },
-    { name: 'Node.js', icon: SiNodedotjs, color: 'from-green-400 to-green-600', level: 85 },
-    { name: 'Express', icon: SiExpress, color: 'from-gray-400 to-gray-600', level: 80 },
-    { name: 'MongoDB', icon: SiMongodb, color: 'from-green-400 to-green-600', level: 85 },
-    { name: 'MySQL', icon: SiMysql, color: 'from-blue-600 to-blue-800', level: 80 },
-    { name: 'Tailwind CSS', icon: SiTailwindcss, color: 'from-teal-400 to-blue-500', level: 95 },
-    { name: 'PHP', icon: SiPhp, color: 'from-purple-400 to-purple-600', level: 75 },
-    { name: 'Git', icon: SiGit, color: 'from-orange-500 to-red-600', level: 85 },
+    // { name: 'TypeScript', icon: SiTypescript, color: 'from-blue-500 to-blue-700', level: 80 },
+    { name: 'React', icon: SiReact, color: 'from-cyan-400 to-blue-500', level: 60 },
+    { name: 'Node.js', icon: SiNodedotjs, color: 'from-green-400 to-green-600', level: 55 },
+    // { name: 'Express', icon: SiExpress, color: 'from-gray-400 to-gray-600', level: 40 },
+    { name: 'MongoDB', icon: SiMongodb, color: 'from-green-400 to-green-600', level: 75 },
+    { name: 'MySQL', icon: SiMysql, color: 'from-blue-600 to-blue-800', level: 60 },
+    // { name: 'Tailwind CSS', icon: SiTailwindcss, color: 'from-teal-400 to-blue-500', level: 45 },
+    { name: 'PHP', icon: SiPhp, color: 'from-purple-400 to-purple-600', level: 45 },
+    { name: 'Git', icon: SiGit, color: 'from-orange-500 to-red-600', level: 45 },
   ];
 
   const containerVariants = {
@@ -118,7 +118,7 @@ export default function Skills() {
         >
           <div className="inline-flex items-center gap-8 bg-white dark:bg-slate-800 rounded-full px-8 py-4 shadow-lg">
             <div className="text-center">
-              <div className="text-2xl font-bold text-primary">12+</div>
+              <div className="text-2xl font-bold text-primary">2+</div>
               <div className="text-sm text-slate-600 dark:text-slate-400">Technologies</div>
             </div>
             <div className="w-px h-12 bg-slate-200 dark:bg-slate-700"></div>

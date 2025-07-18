@@ -67,9 +67,9 @@ export default function Footer() {
           >
             <h4 className="font-semibold text-slate-900 dark:text-white mb-4">Get In Touch</h4>
             <div className="space-y-2 text-sm">
-              <p className="text-slate-600 dark:text-slate-300">uttam.dabhi@email.com</p>
-              <p className="text-slate-600 dark:text-slate-300">+91 98765 43210</p>
-              <p className="text-slate-600 dark:text-slate-300">Gujarat, India</p>
+              <p className="text-slate-600 dark:text-slate-300">umdabhi2004@gmail.com</p>
+              <p className="text-slate-600 dark:text-slate-300">+91 99780 95704</p>
+              <p className="text-slate-600 dark:text-slate-300">Ahemdabad, Gujarat, India</p>
             </div>
           </motion.div>
         </div>

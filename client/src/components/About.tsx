@@ -11,8 +11,8 @@ export default function About() {
   };
 
   const stats = [
-    { icon: Award, value: "10+", label: "Projects Completed", color: "from-blue-500 to-cyan-500" },
-    { icon: Users, value: "2+", label: "Years Experience", color: "from-purple-500 to-pink-500" },
+    { icon: Award, value: "3+", label: "Projects Completed", color: "from-blue-500 to-cyan-500" },
+    { icon: Users, value: "2+", label: "Years Hands on Experience", color: "from-purple-500 to-pink-500" },
     { icon: Coffee, value: "500+", label: "Cups of Coffee", color: "from-orange-500 to-red-500" },
     { icon: Heart, value: "100%", label: "Passion for Code", color: "from-green-500 to-teal-500" }
   ];
@@ -22,12 +22,12 @@ export default function About() {
       {/* Background Elements */}
       <div className="absolute top-0 left-0 w-full h-full opacity-5">
         <div className="absolute top-10 left-10 w-20 h-20 bg-primary rounded-full animate-pulse"></div>
-        <div className="absolute top-40 right-20 w-16 h-16 bg-purple-500 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
-        <div className="absolute bottom-20 left-1/4 w-12 h-12 bg-cyan-500 rounded-full animate-pulse" style={{animationDelay: '2s'}}></div>
+        <div className="absolute top-40 right-20 w-16 h-16 bg-purple-500 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute bottom-20 left-1/4 w-12 h-12 bg-cyan-500 rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div 
+        <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -40,7 +40,8 @@ export default function About() {
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <motion.div 
+          {/* Profile Image */}
+          <motion.div
             className="relative"
             initial={{ opacity: 0, x: -100 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -54,35 +55,40 @@ export default function About() {
                 transition={{ duration: 0.3 }}
               >
                 <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=800"
+                  src="https://i.postimg.cc/nhvxR9pT/Whats-App-Image-2025-07-15-at-13-23-50-6b0dce78.jpg"
                   alt="Uttam Dabhi Profile"
                   className="rounded-2xl shadow-2xl w-full h-80 object-cover relative z-10"
                 />
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-purple-600/30 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </motion.div>
-              
-              {/* Decorative Elements */}
+
+              {/* Decorative Glow */}
               <div className="absolute -top-4 -left-4 w-24 h-24 bg-gradient-to-br from-primary to-purple-600 rounded-full opacity-20 animate-pulse"></div>
-              <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-gradient-to-br from-purple-600 to-cyan-600 rounded-full opacity-20 animate-pulse" style={{animationDelay: '1s'}}></div>
+              <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-gradient-to-br from-purple-600 to-cyan-600 rounded-full opacity-20 animate-pulse" style={{ animationDelay: '1s' }}></div>
             </div>
           </motion.div>
-          
+
+          {/* Description + Stats */}
           <motion.div
             initial={{ opacity: 0, x: 100 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <motion.p 
+            <motion.p
               className="text-lg text-slate-600 dark:text-slate-300 mb-8 leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
             >
-              I'm a BCA student at Silver Oak University passionate about full-stack development. I specialize in JavaScript and love creating dynamic, responsive web applications that solve real-world problems. My journey in tech is driven by curiosity and a desire to build meaningful digital experiences.
+              I'm a BCA student at Silver Oak University passionate about full-stack development.
+              I specialize in JavaScript and love creating dynamic, responsive web applications
+              that solve real-world problems. My journey in tech is driven by curiosity and a desire
+              to build meaningful digital experiences.
             </motion.p>
-            
+
+            {/* Stats */}
             <div className="grid grid-cols-2 gap-4 mb-8">
               {stats.map((stat, index) => (
                 <motion.div
@@ -104,20 +110,31 @@ export default function About() {
                 </motion.div>
               ))}
             </div>
-            
-            <motion.button
-              onClick={() => scrollToSection('projects')}
-              className="inline-flex items-center bg-gradient-to-r from-primary to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-purple-600 hover:to-cyan-600 transition-all duration-300 gap-2 group"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.8 }}
-            >
-              View My Projects
-              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </motion.button>
+
+            {/* Buttons with spacing */}
+            <div className="flex flex-col sm:flex-row sm:items-center sm:gap-6">
+              <motion.button
+                onClick={() => scrollToSection('projects')}
+                className="inline-flex items-center bg-gradient-to-r from-primary to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-purple-600 hover:to-cyan-600 transition-all duration-300 gap-2 group"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.8 }}
+              >
+                View My Projects
+                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </motion.button>
+
+              <a
+                href="https://drive.google.com/file/d/1SA6-bEaMMYMw0YC0gZqtakGtrAegBWOe/view?usp=sharing"
+                download
+                className="inline-block mt-4 sm:mt-0 px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-500 text-white rounded-lg font-semibold shadow-md hover:from-cyan-600 hover:to-blue-600 transition-all duration-300"
+              >
+                📄 Download Resume
+              </a>
+            </div>
           </motion.div>
         </div>
       </div>

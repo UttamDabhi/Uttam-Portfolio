@@ -5,11 +5,11 @@ import { motion } from 'framer-motion';
 export default function Projects() {
   const projects = [
     {
-      title: 'E-commerce Dashboard',
+      title: 'investments_Mangement',
       description: 'A comprehensive admin dashboard for e-commerce management with real-time analytics, inventory management, and user authentication.',
       image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=400',
-      tags: ['React', 'Node.js', 'MongoDB', 'Chart.js'],
-      github: '#',
+      tags: ['HTML', 'Css', 'MySql', 'javaScrpit','php','BootStarp'],
+      github: 'https://github.com/UttamDabhi/investments_Mangement',
       demo: '#',
       featured: true,
       stats: { stars: 24, users: 150, date: '2024' }
@@ -19,23 +19,23 @@ export default function Projects() {
       description: 'A collaborative task management application with real-time updates, team collaboration features, and project tracking.',
       image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=400',
       tags: ['React', 'Express', 'Socket.io', 'JWT'],
-      github: '#',
+      github: '',
       demo: '#',
       featured: false,
       stats: { stars: 18, users: 89, date: '2024' }
     },
     {
-      title: 'Social Media Platform',
+      title: 'RamKrishna University',
       description: 'A full-stack social media platform with posts, comments, likes, user authentication, and real-time messaging.',
       image: 'https://images.unsplash.com/photo-1611262588024-d12430b98920?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=400',
-      tags: ['MERN', 'JWT', 'Cloudinary', 'Socket.io'],
-      github: '#',
+      tags: ['HTML', 'css', 'JavaScript', 'BootStrape'],
+      github: '',
       demo: '#',
       featured: true,
       stats: { stars: 32, users: 200, date: '2024' }
     },
     {
-      title: 'Weather App',
+      title: 'UttamPortfolio',
       description: 'A modern weather application with location-based forecasts, interactive maps, and beautiful animations.',
       image: 'https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=400',
       tags: ['React', 'API', 'Tailwind', 'Framer Motion'],
